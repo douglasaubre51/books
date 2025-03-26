@@ -6,6 +6,7 @@ public class LibraryWindow extends JFrame {
     public LibraryWindow(){
         setSize(500,500);
         setLayout(null);
+
         setVisible(true);
     }
 }
