@@ -62,6 +62,8 @@ public class LoginWindow extends JFrame {
 
                 if (result==true) {
                     System.out.println("login success!");
+                    LibraryWindow window=new LibraryWindow();
+                    dispose();
                 } else {
                     System.out.println("login failure!");
                 }
