@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.library.models.Book;
@@ -43,34 +44,22 @@ public class LibraryWindow extends JFrame {
                 boolean isValid = tools.validateFields(nameTextField);
 
                 if (isValid) {
-                    String name = nameTextField.getName();
+                    String name = nameTextField.getText();
+                    System.out.println("name" + name);
                     BookRepository _repository = new BookRepository();
                     Book book = _repository.getBook(name);
 
-                    JLabel[] labels = new JLabel[] {
-                            new JLabel("name:"), new JLabel("author:"), new JLabel("price:")
-                    };
+                    if (book != null) {
+                        System.out.println("hello" + book.name);
 
-                    JLabel[] bookLabels = new JLabel[] {
-                            new JLabel(book.name), new JLabel(book.author), new JLabel(book.price)
-                    };
+                        JTextField bookNameTextField = new JTextField();
+                        bookNameTextField.setText(book.name);
+                        bookNameTextField.setBounds(20, 100, 70, 20);
+                        add(bookNameTextField);
+                        JOptionPane.showMessageDialog(null, "name: "+book.name + "\n" +"author: "+ book.author + "\n"+"price: " + book.price+" rs",
+                                "result", JOptionPane.INFORMATION_MESSAGE);
 
-                    int incrementX = 20;
-                    int incrementY = 40;
 
-                    for (JLabel l : labels) {
-                        l.setBounds(incrementX, incrementY, 200, 20);
-                        add(l);
-                        incrementY += 40;
-                    }
-
-                    incrementX = 50;
-                    incrementY = 40;
-
-                    for (JLabel bl : bookLabels) {
-                        bl.setBounds(incrementX, incrementY, 200, 20);
-                        add(bl);
-                        incrementY += 40;
                     }
                 } else {
                     PopUpWindow window = new PopUpWindow("error!", "empty fields!", WindowType.LIBRARY);

@@ -4,53 +4,104 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Scanner;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.library.models.Book;
-
 public class BookRepository {
-    public BookRepository() {
-    }
 
-    public Book getBook(String name) {
-        String urlString = "http://localhost:8080/getBook?name=" + name;
+    public Book getBook(String name){
+        Connection _conn;
+		PreparedStatement preparedStatement;
 
-        Book book = new Book();
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
-        try {
-            URL url = new URL(urlString);
+			String url="jdbc:mysql://localhost:3306/AyaneDb";
+			String user="root";
+			String password="password";
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            System.out.println("opened connection to ayane!");
+			_conn=(Connection)DriverManager.getConnection(url,user,password);
 
-            InputStreamReader reader = new InputStreamReader(connection.getInputStream());
-            System.out.println("got input stream!");
+            String insertSql="select name,author,price from books where author=?";
 
-            BufferedReader buffer = new BufferedReader(reader);
+            preparedStatement=_conn.prepareStatement(insertSql);
+            preparedStatement.setString(1,name);
+            preparedStatement.execute();
 
-            String data;
-            StringBuilder jsonString = new StringBuilder();
+            ResultSet set=preparedStatement.executeQuery();
 
-            connection.getResponseCode();
+            if(set!=null){
+                Book book=new Book();
 
-            while ((data = buffer.readLine()) != null) {
-                if (data == null) {
-                    return null;
-                }
-
-                System.out.println("reading data stream from ayane!");
-                jsonString.append(data);
-                System.out.println(data);
+            while(set.next()){
+                book.name=set.getString("name");
+                book.author=set.getString("author");
+                book.price=set.getString("price");
             }
 
-            reader.close();
+            System.out.println("name"+book.name);
 
-            ObjectMapper mapper = new ObjectMapper();
-            book = mapper.readValue(jsonString.toString(), Book.class);
+            return book;
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return book;
+            }
+
     }
+    catch(Exception e){
+        e.printStackTrace();
+    }
+    return null;
 }
+}
+
+//     public Book getBook(String name) {
+//         String urlString = "http://localhost:8080/getBook?name="+name;
+
+//         Book book = new Book();
+
+//         try {
+//             URL url = new URL(urlString);
+
+//             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//             connection.setRequestMethod("GET");
+//             System.out.println("opened connection to ayane!");
+
+//             int status=connection.getResponseCode();
+//             if(status==HttpURLConnection.HTTP_NOT_FOUND){
+//                 System.out.println("book not found!");
+//                 return new Book();
+//             }
+
+//             InputStreamReader reader = new InputStreamReader(connection.getInputStream());
+//             System.out.println("got input stream!");
+
+//             BufferedReader buffer = new BufferedReader(reader);
+
+//             String data;
+//             StringBuilder jsonString = new StringBuilder();
+
+
+
+//             while ((data = buffer.readLine()) != null) {
+//                 System.out.println("reading data stream from ayane!");
+//                 jsonString.append(data);
+//                 System.out.println(data);
+//             }
+
+//             reader.close();
+
+//             ObjectMapper mapper = new ObjectMapper();
+//             book = mapper.readValue(jsonString.toString(), Book.class);
+//             System.out.println(book.name);
+
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//         return book;
+//     }
+// }
