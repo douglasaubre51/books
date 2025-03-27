@@ -1,8 +1,6 @@
 package com.library.windows;
 
 import java.awt.Font;
-import java.awt.Window;
-import java.awt.GraphicsDevice.WindowTranslucency;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,10 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.library.WindowType;
 import com.library.models.Book;
 import com.library.repositories.BookRepository;
 import com.library.tools.UITools;
+import com.library.types.WindowType;
 
 public class LibraryWindow extends JFrame {
     public LibraryWindow(String name) {

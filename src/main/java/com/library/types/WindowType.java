@@ -1,4 +1,4 @@
-package com.library;
+package com.library.types;
 
 public enum WindowType {
     LOGIN,

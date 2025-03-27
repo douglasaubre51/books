@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.library.WindowType;
+import com.library.types.WindowType;
 
 public class PopUpWindow extends JFrame {
     public PopUpWindow(String name, String message, WindowType windowType) {

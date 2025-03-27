@@ -2,9 +2,9 @@ package com.library.windows;
 
 import javax.swing.JFrame;
 
-import com.library.WindowType;
 import com.library.repositories.AccountRepository;
 import com.library.tools.UITools;
+import com.library.types.WindowType;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
