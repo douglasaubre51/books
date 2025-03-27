@@ -2,6 +2,7 @@ package com.library.windows;
 
 import javax.swing.JFrame;
 
+import com.library.WindowType;
 import com.library.repositories.AccountRepository;
 import com.library.tools.UITools;
 
@@ -11,8 +12,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class CreateAccountWindow extends JFrame{
-    public CreateAccountWindow(String name){
+public class CreateAccountWindow extends JFrame {
+    public CreateAccountWindow(String name) {
         setLocationRelativeTo(null);
         setLayout(null);
         setTitle(name);
@@ -69,10 +70,12 @@ public class CreateAccountWindow extends JFrame{
                 }
 
                 if (result) {
-                    PopUpWindow window = new PopUpWindow("action result!");
+                    PopUpWindow window = new PopUpWindow("action result!", "account created successfully!",
+                            WindowType.LOGIN);
                     dispose();
                 } else {
-                    PopUpWindow window = new PopUpWindow("action result!", "failed to create new account!");
+                    PopUpWindow window = new PopUpWindow("action result!", "failed to create new account!",
+                            WindowType.CREATE_ACCOUNT);
                     dispose();
                 }
 

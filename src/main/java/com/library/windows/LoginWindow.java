@@ -13,7 +13,7 @@ import javax.swing.*;
 
 public class LoginWindow extends JFrame {
 
-    public LoginWindow(String name){
+    public LoginWindow(String name) {
         setLocationRelativeTo(null);
         setLayout(null);
         setTitle(name);
@@ -60,9 +60,9 @@ public class LoginWindow extends JFrame {
                     tools.clearTextFields(emailTextField, passwordTextField);
                 }
 
-                if (result==true) {
+                if (result == true) {
                     System.out.println("login success!");
-                    LibraryWindow window=new LibraryWindow();
+                    LibraryWindow window = new LibraryWindow("welcome to library");
                     dispose();
                 } else {
                     System.out.println("login failure!");

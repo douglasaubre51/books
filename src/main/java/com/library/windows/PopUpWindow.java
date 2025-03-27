@@ -7,32 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class PopUpWindow extends JFrame{
-    public PopUpWindow(String name){
-        setLayout(null);
-        setTitle(name);
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+import com.library.WindowType;
 
-        JLabel label = new JLabel("account created successfully!");
-        label.setBounds(30, 0, 250, 20);
-        add(label);
-
-        JButton loginButton = new JButton("login");
-        loginButton.setBounds(30, 60, 100, 20);
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LoginWindow window = new LoginWindow("ayane - login");
-                dispose();
-            }
-        });
-        add(loginButton);
-
-        setVisible(true);
-    }
-
-    PopUpWindow(String name, String message) {
+public class PopUpWindow extends JFrame {
+    public PopUpWindow(String name, String message, WindowType windowType) {
         setLayout(null);
         setTitle(name);
         setSize(300, 200);
@@ -43,17 +21,26 @@ public class PopUpWindow extends JFrame{
         label.setBounds(30, 0, 250, 20);
         add(label);
 
-        JButton createAccountButton = new JButton("try again");
-        createAccountButton.setBounds(30, 60, 100, 20);
-        createAccountButton.addActionListener(new ActionListener() {
+        JButton Button = new JButton(name);
+        Button.setBounds(30, 60, 100, 20);
+        Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CreateAccountWindow window = new CreateAccountWindow("ayane - create new account!");
-                dispose();
+                if (windowType == windowType.LOGIN) {
+                    LoginWindow window = new LoginWindow("ayane - ");
+                    dispose();
+                }
+                if (windowType == windowType.CREATE_ACCOUNT) {
+                    CreateAccountWindow window = new CreateAccountWindow("ayane - ");
+                    dispose();
+                }
+                if (windowType == windowType.LIBRARY) {
+                    LibraryWindow window = new LibraryWindow("ayane - ");
+                    dispose();
+                }
             }
         });
-        add(createAccountButton);
+        add(Button);
 
         setVisible(true);
-
     }
 }

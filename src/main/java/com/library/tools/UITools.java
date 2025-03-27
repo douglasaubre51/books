@@ -3,7 +3,14 @@ package com.library.tools;
 import javax.swing.*;
 
 public class UITools {
-     public boolean validateFields(JTextField a, JTextField b) {
+    public boolean validateFields(JTextField a) {
+        if (a.getText().trim().isEmpty())
+            return false;
+        else
+            return true;
+    }
+
+    public boolean validateFields(JTextField a, JTextField b) {
         if (a.getText().trim().isEmpty() || b.getText().trim().isEmpty()) {
             return false;
         } else
